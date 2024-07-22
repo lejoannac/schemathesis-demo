@@ -19,12 +19,12 @@ jobs:
     - name: Stop containers
       if: always()
       run: docker-compose down
+      
+  api-tests:
+    stage: test
+    image:
+      name: schemathesis/schemathesis:stable
+      entrypoint: [""]
 
-api-tests:
-  stage: test
-  image:
-    name: schemathesis/schemathesis:stable
-    entrypoint: [""]
-
-  script:
-    - st run http://127.0.0.1:5000/api/openapi.json --checks=all --report
+    script:
+      - st run http://127.0.0.1:5000/api/openapi.json --checks=all --report
