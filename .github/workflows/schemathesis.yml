@@ -12,9 +12,38 @@ jobs:
       run: docker compose up -d --build
 
     - uses: schemathesis/action@v1
-      with:
-        schema: 'http://127.0.0.1:5123/openapi.json'
-        token: ${{ secrets.schemathesis_token }}
+    with:
+      # API schema location
+      schema: 'https://example.schemathesis.io/openapi.json'
+      # OPTIONAL. URL that will be used as a prefix for all API operations.
+      # Useful when the API schema is maintained separately from the application.
+      base-url: 'https://example.schemathesis.io/v2/'
+      # OPTIONAL. Your Schemathesis.io token
+      token: ${{ secrets.schemathesis.token }}
+      # OPTIONAL. API name from Schemathesis.io
+      api-name: 'payments-api'
+      # OPTIONAL. List of Schemathesis checks to run. Defaults to `all`
+      checks: 'not_a_server_error'
+      # OPTIONAL. Whether you'd like to see the results in a Web UI
+      # Defaults to `true`
+      report: 'true'
+      # OPTIONAL. Maximum time in seconds to wait on the API schema availability
+      wait-for-schema: '30'
+      # OPTIONAL. Maximum number of generated examples for each endpoint
+      max-examples: 50
+      # OPTIONAL. Specify which version of Schemathesis should be used. 
+      # Defaults to `latest`
+      version: 'latest'
+      # OPTIONAL. Schemathesis hooks module. Available for Schemathesis >= 3.18.5 only
+      hooks: 'tests.hooks'
+      # OPTIONAL. Extra arguments to pass to Schemathesis
+      args: '-D negative'
+
+
+    # - uses: schemathesis/action@v1
+    #     with:
+    #       schema: 'http://127.0.0.1:5123/openapi.json'
+    #       token: ${{ secrets.schemathesis_token }}
 
     - name: Stop containers
       if: always()
