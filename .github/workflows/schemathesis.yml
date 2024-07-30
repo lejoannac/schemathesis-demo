@@ -19,7 +19,7 @@ jobs:
         # Useful when the API schema is maintained separately from the application.
         base-url: 'https://example.schemathesis.io/v2/'
         # OPTIONAL. Your Schemathesis.io token
-        token: ${{ secrets.schemathesis.token }}
+        token: ${{ secrets.schemathesis_token }}
         # OPTIONAL. API name from Schemathesis.io
         api-name: 'payments-api'
         # OPTIONAL. List of Schemathesis checks to run. Defaults to `all`
@@ -55,5 +55,5 @@ jobs:
 #     name: schemathesis/schemathesis:stable
 #     entrypoint: [""]
 
-  script:
-    - st run http://127.0.0.1:5000/api/openapi.json --checks=all --report
+#   script:
+#     - st run http://127.0.0.1:5000/api/openapi.json --checks=all --report
