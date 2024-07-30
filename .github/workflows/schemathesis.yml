@@ -35,7 +35,7 @@ jobs:
         # Defaults to `latest`
         version: 'latest'
         # OPTIONAL. Schemathesis hooks module. Available for Schemathesis >= 3.18.5 only
-        hooks: 'tests.hooks'
+        # hooks: 'tests.hooks'
         # OPTIONAL. Extra arguments to pass to Schemathesis
         args: '-D negative'
 
@@ -49,11 +49,11 @@ jobs:
       if: always()
       run: docker-compose down
 
-api-tests:
-  stage: test
-  image:
-    name: schemathesis/schemathesis:stable
-    entrypoint: [""]
+# api-tests:
+#   stage: test
+#   image:
+#     name: schemathesis/schemathesis:stable
+#     entrypoint: [""]
 
   script:
     - st run http://127.0.0.1:5000/api/openapi.json --checks=all --report
